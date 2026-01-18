@@ -113,11 +113,13 @@ He's going back.
 
 Kael hasn't been to Earth in 20 years. The descent is sensory assault:
 - The noise of the feeds, the notifications, the constant chatter
-- The density — people everywhere, too close
+- The density — people everywhere, too close, bumping into each other while staring at screens
 - The smell — synthetic, processed, nothing organic
 - The light — artificial even when it's daylight
 
 He's alien here now. His body language is wrong. He moves like someone who's used to being alone.
+
+He puts on noise-cancelling **headphones**, plays **brown noise** — the familiar hum of The Liminal's systems. A portable cocoon. Safety. He takes them off when things look shady. Puts them back on when he thinks he's clear — which is why he doesn't hear Elara coming later.
 
 ### Scene 5: The Address
 
@@ -153,9 +155,9 @@ In the chaos, Kael spots something on what's left of a shelf — half-melted but
 
 **Kael knows what it is.**
 
-Marcus wore contacts. Kael never could get used to them — tried once, hated it.
+Marcus wore glasses — big frames, didn't care how they looked. Kael wears contacts. Years ago, Kael gave Marcus a data key shaped like a contact lens case — "contacts would suit you better, make you look less like someone's grandfather." Marcus kept it. Used it.
 
-Inside that case isn't lenses. It's Marcus's **data key**. In 2147, everything's remote — your data lives in the cloud, and your key is how you access it from anywhere. Like a YubiKey, but disguised as something mundane.
+The case IS the key. Press it with thumb pressure, NFC clicks on, tap to access. In 2147, everything's remote — your data lives in the cloud, and your key is how you access it from anywhere.
 
 Marcus's whole life. His work. His investigation. All accessible with that key.
 
@@ -178,6 +180,10 @@ Kael knows how to move. Twenty years in tight spaces on stations and ships. He's
 
 He's losing them. Almost clear.
 
+He stops. Listens. Nothing. "I think I've lost them."
+
+He puts his headphones back on. The brown noise returns — safety, cocoon. He keeps moving.
+
 Turns a corner at full sprint, looking back over his shoulder—
 
 ---
@@ -187,6 +193,8 @@ Turns a corner at full sprint, looking back over his shoulder—
 ### Scene 9: The Accident
 
 **COLLISION.**
+
+He didn't hear her coming. The headphones.
 
 Kael's shoulder connects hard with someone's face. A woman. She goes down.
 
@@ -284,9 +292,11 @@ Her mouth opens—
 
 **World-building note:** In 2147, all data is remote. Your files, your work, your life — it's all in the cloud. What you carry is just a key to access it. Like a YubiKey, but everyone has one, disguised as something mundane.
 
-Marcus's key is hidden in a **contact lens holder**:
-- Marcus wore contacts. Kael tried them once, never got used to them.
-- A small personal detail that connects them
+Marcus's key is a **contact-lens-case-shaped data key**:
+- Marcus wore glasses — big frames, didn't care how they looked. Kael wears contacts.
+- Kael gave Marcus the key years ago, teasing him: "contacts would suit you better"
+- Marcus kept it. Used it. A small personal detail that connects them.
+- Press with thumb pressure, NFC clicks on, tap to access
 - Looks like nothing — the contractors almost missed it
 - Contains access to Marcus's entire digital life: his work, his investigation, everything
 
