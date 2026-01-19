@@ -207,31 +207,21 @@ function renderScreenplay(
     }
 
     /* Navigation */
-    .navigation {
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      z-index: 100;
-    }
-
     .nav-button {
-      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
       color: var(--text-dim);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 4px;
-      padding: 10px 20px;
+      padding: 20px 12px;
       cursor: pointer;
       font-family: monospace;
-      font-size: 16px;
+      font-size: 24px;
       transition: all 0.2s;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      z-index: 100;
     }
 
     .nav-button:hover {
@@ -240,20 +230,12 @@ function renderScreenplay(
       border-color: var(--accent);
     }
 
-    .nav-button.disabled {
-      opacity: 0.3;
-      pointer-events: none;
+    .nav-prev {
+      left: 20px;
     }
 
-    .nav-hint {
-      position: fixed;
-      bottom: 70px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-dim);
-      opacity: 0.5;
+    .nav-next {
+      right: 20px;
     }
 
     /* Responsive */
@@ -284,7 +266,7 @@ function renderScreenplay(
         color: black;
       }
 
-      .header, .navigation, .nav-hint {
+      .header, .nav-button {
         display: none;
       }
 
@@ -310,35 +292,17 @@ function renderScreenplay(
     </div>
   </div>
 
-  <div class="nav-hint">Use arrow keys or click arrows to navigate episodes</div>
-
-  <div class="navigation">
-    <a href="${prevEpisode ? `/episode/${prevEpisode.slug}` : '#'}"
-       class="nav-button ${!prevEpisode ? 'disabled' : ''}"
-       ${!prevEpisode ? 'tabindex="-1"' : ''}>
-      <span>&larr;</span>
-      <span>Prev</span>
-    </a>
-    <a href="${nextEpisode ? `/episode/${nextEpisode.slug}` : '#'}"
-       class="nav-button ${!nextEpisode ? 'disabled' : ''}"
-       ${!nextEpisode ? 'tabindex="-1"' : ''}>
-      <span>Next</span>
-      <span>&rarr;</span>
-    </a>
-  </div>
+  ${prevEpisode ? `<a href="/episode/${prevEpisode.slug}" class="nav-button nav-prev">&lt;</a>` : ''}
+  ${nextEpisode ? `<a href="/episode/${nextEpisode.slug}" class="nav-button nav-next">&gt;</a>` : ''}
 
   <script>
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
-        const prev = document.querySelector('.nav-button:first-child');
-        if (prev && !prev.classList.contains('disabled')) {
-          window.location.href = prev.href;
-        }
+        const prev = document.querySelector('.nav-prev');
+        if (prev) window.location.href = prev.href;
       } else if (e.key === 'ArrowRight') {
-        const next = document.querySelector('.nav-button:last-child');
-        if (next && !next.classList.contains('disabled')) {
-          window.location.href = next.href;
-        }
+        const next = document.querySelector('.nav-next');
+        if (next) window.location.href = next.href;
       }
     });
   </script>
