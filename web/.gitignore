@@ -179,3 +179,6 @@ dist
 
 # Generated font base64 files (built from .ttf sources)
 src/fonts/*.b64
+
+# Generated static pages (built from .fountain sources)
+pages/

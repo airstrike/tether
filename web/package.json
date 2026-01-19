@@ -5,7 +5,8 @@
   "scripts": {
     "build": "bun run build.ts",
     "dev": "bun run build && wrangler dev",
-    "deploy": "bun run build && wrangler deploy"
+    "deploy": "bun run build && wrangler deploy",
+    "pages": "bun run build && wrangler pages deploy pages --project-name=read-tether"
   },
   "devDependencies": {
     "@types/bun": "latest"
