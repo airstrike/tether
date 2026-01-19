@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'fs';
 import { join, dirname } from 'path';
 
 const SCREENPLAYS_DIR = join(dirname(import.meta.dir), 'screenplays');
@@ -33,5 +33,9 @@ mkdirSync(DIST_DIR, { recursive: true });
 
 // Write the built worker
 writeFileSync(join(DIST_DIR, 'worker.ts'), workerCode);
+
+// Copy supporting modules
+copyFileSync(join(SRC_DIR, 'theme.ts'), join(DIST_DIR, 'theme.ts'));
+copyFileSync(join(SRC_DIR, 'icons.ts'), join(DIST_DIR, 'icons.ts'));
 
 console.log('Build complete! Worker written to dist/worker.ts');

@@ -1,4 +1,6 @@
 import { Fountain } from 'fountain-js';
+import { generateAllThemesCSS } from './theme';
+import { icons } from './icons';
 
 // Episode registry - add new episodes here
 const EPISODES: { slug: string; file: string; title: string }[] = [
@@ -57,6 +59,8 @@ function renderScreenplay(
   const prevEpisode = currentIndex > 0 ? allEpisodes[currentIndex - 1] : null;
   const nextEpisode = currentIndex < allEpisodes.length - 1 ? allEpisodes[currentIndex + 1] : null;
 
+  const themeCSS = generateAllThemesCSS();
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +68,10 @@ function renderScreenplay(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${script.title || currentEpisode.title} - TETHER</title>
   <style>
+    ${themeCSS}
+
     :root {
       --page-width: 8.5in;
-      --bg: #1a1a1a;
-      --text: #e8e8e8;
-      --text-dim: rgba(232, 232, 232, 0.5);
-      --accent: #00aaff;
     }
 
     * {
@@ -84,6 +86,7 @@ function renderScreenplay(
       color: var(--text);
       margin: 0;
       padding: 0;
+      transition: background-color 0.2s, color 0.2s;
     }
 
     .header {
@@ -97,6 +100,7 @@ function renderScreenplay(
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background 0.2s;
     }
 
     .header-title {
@@ -104,7 +108,38 @@ function renderScreenplay(
       color: var(--text-dim);
       font-size: 14px;
       letter-spacing: 2px;
+      flex: 1;
     }
+
+    .header-title:last-child {
+      text-align: right;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text-dim);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text);
+    }
+
+    .theme-toggle svg {
+      display: block;
+    }
+
+    /* Show appropriate icon based on theme */
+    .icon-sun { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="light"] .icon-moon { display: none; }
 
     .screenplay-container {
       max-width: var(--page-width);
@@ -117,7 +152,7 @@ function renderScreenplay(
       text-align: center;
       padding: 2in 0;
       margin-bottom: 2em;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border);
     }
 
     .title-page h1 {
@@ -192,7 +227,7 @@ function renderScreenplay(
     }
 
     .note {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--nav-bg);
       padding: 0.5em 1em;
       border-left: 2px solid var(--accent);
       margin: 1em 0;
@@ -200,7 +235,7 @@ function renderScreenplay(
     }
 
     .page-break {
-      border-top: 1px dashed rgba(255,255,255,0.2);
+      border-top: 1px dashed var(--border);
       margin: 3em 0;
       text-align: center;
       position: relative;
@@ -211,22 +246,23 @@ function renderScreenplay(
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: var(--nav-bg);
       color: var(--text-dim);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--nav-border);
       border-radius: 4px;
-      padding: 20px 12px;
+      padding: 16px 10px;
       cursor: pointer;
-      font-family: monospace;
-      font-size: 24px;
       transition: all 0.2s;
       text-decoration: none;
       z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .nav-button:hover {
-      background-color: rgba(0, 170, 255, 0.2);
-      color: white;
+      background-color: var(--nav-hover-bg);
+      color: var(--text);
       border-color: var(--accent);
     }
 
@@ -257,17 +293,29 @@ function renderScreenplay(
         margin-left: 0.75in;
         margin-right: 0.75in;
       }
+
+      .nav-button {
+        padding: 12px 8px;
+      }
+
+      .nav-prev {
+        left: 10px;
+      }
+
+      .nav-next {
+        right: 10px;
+      }
     }
 
     /* Print styles */
     @media print {
       body {
-        background: white;
-        color: black;
+        background: white !important;
+        color: black !important;
       }
 
       .header, .nav-button {
-        display: none;
+        display: none !important;
       }
 
       .screenplay-container {
@@ -276,10 +324,23 @@ function renderScreenplay(
       }
     }
   </style>
+  <script>
+    // Apply theme immediately to prevent flash
+    (function() {
+      const saved = localStorage.getItem('tether-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="header">
     <span class="header-title">TETHER</span>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <span class="icon-sun">${icons.sun}</span>
+      <span class="icon-moon">${icons.moon}</span>
+    </button>
     <span class="header-title">${currentEpisode.title.toUpperCase()}</span>
   </div>
 
@@ -292,10 +353,20 @@ function renderScreenplay(
     </div>
   </div>
 
-  ${prevEpisode ? `<a href="/episode/${prevEpisode.slug}" class="nav-button nav-prev">&lt;</a>` : ''}
-  ${nextEpisode ? `<a href="/episode/${nextEpisode.slug}" class="nav-button nav-next">&gt;</a>` : ''}
+  ${prevEpisode ? `<a href="/episode/${prevEpisode.slug}" class="nav-button nav-prev">${icons.chevronLeft}</a>` : ''}
+  ${nextEpisode ? `<a href="/episode/${nextEpisode.slug}" class="nav-button nav-next">${icons.chevronRight}</a>` : ''}
 
   <script>
+    // Theme toggle
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('tether-theme', next);
+    });
+
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         const prev = document.querySelector('.nav-prev');
