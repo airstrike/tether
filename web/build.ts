@@ -348,13 +348,39 @@ function renderScreenplay(
       }
     }
 
+    .footer {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 40px 1in 60px 1in;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 11pt;
+    }
+
+    .footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 40px 20px 60px 20px;
+      }
+    }
+
     @media print {
       body {
         background: white !important;
         color: black !important;
       }
 
-      .header, .nav-button {
+      .header, .nav-button, .footer {
         display: none !important;
       }
 
@@ -391,6 +417,10 @@ function renderScreenplay(
       ${script.html.script}
     </div>
   </div>
+
+  <footer class="footer">
+    <a href="https://x.com/andxdy" target="_blank" rel="noopener">@andxdy</a>
+  </footer>
 
   ${prevEpisode ? `<a href="/episode/${prevEpisode.slug}/" class="nav-button nav-prev">${icons.chevronLeft}</a>` : ''}
   ${nextEpisode ? `<a href="/episode/${nextEpisode.slug}/" class="nav-button nav-next">${icons.chevronRight}</a>` : ''}
