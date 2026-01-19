@@ -368,6 +368,44 @@ function renderScreenplay(
       color: var(--text);
     }
 
+    .counter-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .counter-label {
+      font-size: 10pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+    }
+
+    .counter-display {
+      display: flex;
+      gap: 2px;
+    }
+
+    .counter-digit {
+      display: inline-block;
+      width: 1.2em;
+      height: 1.6em;
+      background: var(--nav-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      text-align: center;
+      line-height: 1.6em;
+      font-size: 11pt;
+      font-weight: 400;
+      transition: transform 0.3s ease;
+    }
+
+    .counter-digit.flip {
+      transform: rotateX(360deg);
+    }
+
     @media (max-width: 768px) {
       .footer {
         padding: 40px 20px 60px 20px;
@@ -420,6 +458,17 @@ function renderScreenplay(
 
   <footer class="footer">
     <a href="https://x.com/andxdy" target="_blank" rel="noopener">@andxdy</a>
+    <div class="counter-container">
+      <span class="counter-label">readers</span>
+      <div class="counter-display" id="visitor-counter">
+        <span class="counter-digit">-</span>
+        <span class="counter-digit">-</span>
+        <span class="counter-digit">-</span>
+        <span class="counter-digit">-</span>
+        <span class="counter-digit">-</span>
+        <span class="counter-digit">-</span>
+      </div>
+    </div>
   </footer>
 
   ${prevEpisode ? `<a href="/episode/${prevEpisode.slug}/" class="nav-button nav-prev">${icons.chevronLeft}</a>` : ''}
@@ -443,6 +492,47 @@ function renderScreenplay(
         if (next) window.location.href = next.href;
       }
     });
+
+    // Visitor counter
+    (async function() {
+      const counterEl = document.getElementById('visitor-counter');
+      if (!counterEl) return;
+
+      function updateDisplay(count) {
+        const digits = count.toString().padStart(6, '0').split('');
+        const spans = counterEl.querySelectorAll('.counter-digit');
+        digits.forEach((digit, i) => {
+          if (spans[i]) {
+            const oldValue = spans[i].textContent;
+            if (oldValue !== digit) {
+              spans[i].classList.add('flip');
+              setTimeout(() => {
+                spans[i].textContent = digit;
+                spans[i].classList.remove('flip');
+              }, 150);
+            }
+          }
+        });
+      }
+
+      try {
+        const res = await fetch('/counter/hit');
+        if (res.ok) {
+          const data = await res.json();
+          updateDisplay(data.value);
+        }
+      } catch (e) {
+        try {
+          const res = await fetch('/counter/get');
+          if (res.ok) {
+            const data = await res.json();
+            updateDisplay(data.value);
+          }
+        } catch (e2) {
+          console.warn('Counter unavailable');
+        }
+      }
+    })();
   </script>
 </body>
 </html>`;
