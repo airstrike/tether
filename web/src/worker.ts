@@ -1,6 +1,7 @@
 import { Fountain } from 'fountain-js';
 import { generateAllThemesCSS } from './theme';
 import { icons } from './icons';
+import { fontCSS } from './fonts';
 
 // Episode registry - add new episodes here
 const EPISODES: { slug: string; file: string; title: string }[] = [
@@ -68,6 +69,7 @@ function renderScreenplay(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${script.title || currentEpisode.title} - TETHER</title>
   <style>
+    ${fontCSS}
     ${themeCSS}
 
     :root {
@@ -79,8 +81,9 @@ function renderScreenplay(
     }
 
     body {
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'GT Pressura Mono', 'Courier New', Courier, monospace;
       font-size: 12pt;
+      font-weight: 300;
       line-height: 1.5;
       background-color: var(--bg);
       color: var(--text);
