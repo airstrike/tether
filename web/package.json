@@ -1,0 +1,20 @@
+{
+  "name": "tether-web",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun run build.ts",
+    "dev": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "fountain-js": "^1.2.4",
+    "wrangler": "^4.59.2"
+  }
+}
