@@ -3,6 +3,29 @@
 
 ---
 
+## 2026-01-18
+
+### Episode 1 Screenplay Complete
+- **Created**: Full pilot screenplay (`/screenplays/episode-01-the-return.fountain`)
+- **Format**: Hollywood-style Fountain format, ~965 lines
+- **Ending**: Cliffhanger — Elara wakes, sees Kael, about to scream, SMASH CUT TO BLACK
+
+### Key Creative Decisions
+- **Data key**: Contact-lens-case-shaped key (not holder). Press with thumb, NFC clicks on. Kael gave it to Marcus as a joke.
+- **Glasses/contacts**: Marcus wore glasses (big frames, didn't care). Kael wears contacts.
+- **Headphones**: Kael uses noise-cancelling headphones with brown noise (sounds like The Liminal). Takes off when shady, puts back on when "clear" — why he doesn't hear Elara.
+- **No holo ads**: Grounded tech. Audio assault instead (podcasts, ads bleeding from speakers).
+- **Marcus backstory**: Can't leave (auditing skills don't transfer, must support parents — failed-hustler dad, mom he loves).
+
+### Files Modified
+- `/screenplays/episode-01-the-return.fountain` — Complete
+- `/story-bible/phase-3-plot/episode-spines/episode-01-revised.md` — Updated to match
+
+### Session Notes
+- Full context saved to `_system/session-notes-2026-01-18.md`
+
+---
+
 ## 2026-01-17
 
 ### Session Start
