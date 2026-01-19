@@ -376,13 +376,6 @@ function renderScreenplay(
       margin-top: 12px;
     }
 
-    .counter-label {
-      font-size: 10pt;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-dim);
-    }
-
     .counter-display {
       display: flex;
       gap: 2px;
@@ -397,7 +390,7 @@ function renderScreenplay(
       border-radius: 2px;
       text-align: center;
       line-height: 1.6em;
-      font-size: 11pt;
+      font-size: 10pt;
       font-weight: 400;
       transition: transform 0.3s ease;
     }
@@ -459,7 +452,6 @@ function renderScreenplay(
   <footer class="footer">
     <a href="https://x.com/andxdy" target="_blank" rel="noopener">@andxdy</a>
     <div class="counter-container">
-      <span class="counter-label">readers</span>
       <div class="counter-display" id="visitor-counter">
         <span class="counter-digit">-</span>
         <span class="counter-digit">-</span>
